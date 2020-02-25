@@ -213,7 +213,7 @@ function switchPlayers(event){
 		document.getElementById("p_major").textContent = player.major;
 		document.getElementById("g_played").textContent = player.games_played;
 		document.getElementById("p_yards").textContent = player.pass_yards;
-		document.getElementById("avg_p_yards").textContent = parseInt(player.pass_yards / player.games_played), 10;
+		document.getElementById("avg_p_yards").textContent = parseInt(player.pass_yards / player.games_played, 10);
 		document.getElementById("r_yards").textContent = player.rushing_yards;
 		document.getElementById("avg_r_yards").textContent = parseInt(player.rushing_yards / player.games_played, 10);
 		document.getElementById("rec_yards").textContent = player.receiving_yards;
