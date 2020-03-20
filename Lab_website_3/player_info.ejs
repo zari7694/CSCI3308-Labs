@@ -1,0 +1,131 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+				<!-- TODO: Modify the ejs code below, to conditionally set the image_src to be from our chosen player -->
+					<%
+					var image_src = '';
+					if(player_msg){
+						// console.log('if');
+						image_src = player_msg.img_src;
+					}
+					else {
+						// console.log('else');
+						image_src = '../resources/img/helmet.jpg';
+					}
+					%>
+
+				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
+				  <div class="card-body mx-auto">
+					<form class="form"action="/player_info/post" method="get">
+						<select class="custom-select" name="player_choice" onchange="this.form.submit()">
+							 <option selected>Select Player</option>
+							 <!-- TODO: Populate our select with player options
+							 			For each player, set a new option with a value matching the palyer's id,
+							 			but will display the player's name-->
+
+										<!-- <select class="browser-default custom-select"> 
+											<option selected>Open this select menu</option> 
+											<option value="1">One</option> 
+											<option value="2">Two</option> 
+											<option value="3">Three</option> 
+										</select>  -->
+										<% if (data) {
+				    					var options = '';
+											data.forEach(function(item){
+				  		 					options += '<option "value="' + item.name + '">';
+							 					if(item.name){
+						       				options += item.name + '</option>';
+													//console.log(item.name);
+													//console.log(item.id);
+						     				}
+						     				else{
+						    	 				options += item.id + '</option>';
+						     				}
+				  	 					}); %>
+				  	 				<%- options %>
+									<% } %>
+						</select>
+					</form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<!-- TODO: Set Player Information
+							 			If a player has been selected, fill in their information in each of the fields below.
+							 		    You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
+							<th>Year</th>
+						<td><% if(data){
+								var year = player_msg.year;
+							} %><%- year %>
+						</td>
+						</tr>
+						<tr>
+							<th>Major</th>
+							<td><% if(data){
+									var major = player_msg.major;
+								} %><%- major %>
+							</td>
+						</tr>
+						<tr>
+							<th>Games Played</th>
+							<td><% if(games){
+									var games = games.count;
+								} %><%- games %>
+							</td>
+						</tr>
+						<tr>
+							<td>Passing Yards: </td>
+							<td>
+								<% if(data){
+									var passing = player_msg.passing_yards;
+								} %><%- passing %>
+							</td>
+							<td>Avg. Passing Yards: </td>
+							<td>
+								<% if(data){
+									var avg_passing = player_msg.passing_yards / games;
+								} %><%- avg_passing %>
+							</td>
+						</tr>
+						<tr>
+							<td>Rushing Yards: </td>
+							<td>
+								<% if(data){
+									var rushing = player_msg.rushing_yards;
+								} %><%- rushing %>
+							</td>
+							<td>Avg. Rushing Yards: </td>
+							<td>
+								<% if(data){
+									var avg_rushing = player_msg.rushing_yards / games;
+								} %><%- avg_rushing %>
+							</td>
+						</tr>
+						<tr>
+							<td>Receiving Yards: </td>
+							<td>
+								<% if(data){
+									var receiving = player_msg.receiving_yards;
+								} %><%- receiving %>
+							</td>
+							<td>Avg. Receiving Yards: </td>
+							<td>
+								<% if(data){
+									var avg_receiving = player_msg.receiving_yards / games;
+								} %><%- avg_receiving %>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<% include ../partials/footer %>

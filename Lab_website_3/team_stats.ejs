@@ -1,0 +1,69 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="jumbotron">
+		  <h1 class="display-4">Fall 2018 Stats</h1>
+		  <p class="lead">Detailed information on how the Buffs are doing in the 2018 Football Season!</p>
+		</div>
+
+		<table class="table table-bordered" id="stats_table">
+			<tr>
+				<th class="align-bottom" rowspan="2">Game Date</th>
+				<th class="align-bottom"rowspan="2">Opposing Team Name</th>
+				<th class="text-center" colspan="2">Score</th>
+				<th class="align-bottom" rowspan="2">Winner</th>
+			</tr>
+			<tr>
+				<th>Home Score</th>
+				<th>Opp. Score</th>
+			</tr>
+			<!-- TODO: Iterate over the Football_table data here
+						1. Display the information for each row (date, name, home score, visitor score)
+						2. Determine who the winner is and display it in the final column
+						If you're not sure how the logic should work here, review the code you add to the client-side javascript
+						that ran onload for Lab 5.  We are doing the same kind of operations we had in Lab 5, but we are instead having
+						everything handled via server-side scriptes
+			-->
+		<%
+			if(result_1){
+				var rows = '';
+				var winner;
+
+				for(x = 0; x < result_1.length; x++){
+					if(result_1[x].visitor_score > result_1[x].home_score){
+							winner = result_1[x].visitor_name;
+					}
+					else{
+							winner = 'CU BOULDER';
+					}
+					rows += '<tr><td>' + result_1[x].game_date.getDay() + '</td><td>' + result_1[x].visitor_name +
+						'</td><td>' + result_1[x].home_score + '</td><td>' + result_1[x].visitor_score +
+							'</td><td>' + winner + '</td></tr>';}; %>
+				<%- rows %>
+			<% }
+
+		%>
+		</table>
+
+		<br>
+
+		<table class="table text-center">
+			<tr>
+				<th>Wins</th>
+				<th>Losses</th>
+			</tr>
+			<tr>
+				<td> <!-- TODO: Display the total number of wins here.
+							    This value should come from your server.js files query, don't calculate it in this file! -->
+				<%- result_2[0].count %>
+				</td>
+				<td> <!-- TODO: Display the total number of losses here.
+							    This value should come from your server.js files query, don't calculate it in this file! -->
+				<%- result_3[0].count//TODO %>
+			</td>
+			</tr>
+		</table>
+
+	</div>
+<% include ../partials/footer %>
